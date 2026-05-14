@@ -6,11 +6,11 @@
 
 Components:
 
-- Italy choroplet map
-- Barchart
-- map of deviations from national average
-- with year slider
-- filter fuel/region selector
+- [x] Italy choropleth map
+- [x] Barchart
+- [x] map of deviations from national average
+- [x] with year slider
+- [x] filter fuel/region selector
 
 Stack:
 
@@ -25,6 +25,6 @@ Sconosciuti:
 
 ## Visually impressive
 
-- Animated choropleth
-- Bar chart race
-- Interactive dashboard
+- [x] Animated choropleth (via slider/play button)
+- [x] Bar chart race (smooth updates with rank changes)
+- [x] Interactive dashboard (Heatmap + Deviation + Ranking + Distribution)
