@@ -13,11 +13,11 @@ def create_line_chart(df, agg_level='monthly'):
         df,
         x=x_col,
         y='prezzo',
-        color='DEN_REG',
-        line_group='DEN_REG',
-        hover_name='DEN_REG',
+        color='Regione',
+        line_group='Regione',
+        hover_name='Regione',
         title=f"<b>Price Evolution ({agg_level.capitalize()})</b>",
-        labels={'prezzo': 'Price (€/L)', x_col: 'Date', 'DEN_REG': 'Region'},
+        labels={'prezzo': 'Price (€/L)', x_col: 'Date', 'Regione': 'Region'},
         color_discrete_map={'National Average': '#dc3545'}
     )
     

@@ -27,15 +27,15 @@ def process_data(files):
         # Check columns first
         sample = pd.read_csv(f, nrows=1)
         use_cols = ['Data', 'descCarburante', 'prezzo']
-        if 'DEN_REG' in sample.columns:
-            use_cols.append('DEN_REG')
+        if 'Regione' in sample.columns:
+            use_cols.append('Regione')
         elif 'Regione' in sample.columns:
             use_cols.append('Regione')
             
         chunks = pd.read_csv(f, usecols=use_cols, chunksize=1000000)
         for chunk in chunks:
             if 'Regione' in chunk.columns:
-                chunk = chunk.rename(columns={'Regione': 'DEN_REG'})
+                chunk = chunk.rename(columns={'Regione': 'Regione'})
             
             chunk['Data'] = pd.to_datetime(chunk['Data'])
             chunk['year'] = chunk['Data'].dt.year
@@ -46,7 +46,7 @@ def process_data(files):
             distribution_samples.append(dist_sample)
             
             # Full aggregation for choropleth
-            agg = chunk.groupby(['year', 'month', 'DEN_REG', 'descCarburante']).agg(
+            agg = chunk.groupby(['year', 'month', 'Regione', 'descCarburante']).agg(
                 sum_prezzo=('prezzo', 'sum'),
                 count_prezzo=('prezzo', 'count')
             ).reset_index()
@@ -54,7 +54,7 @@ def process_data(files):
             
     print("Finalizing aggregation...")
     final = pd.concat(summaries)
-    final = final.groupby(['year', 'month', 'DEN_REG', 'descCarburante']).agg(
+    final = final.groupby(['year', 'month', 'Regione', 'descCarburante']).agg(
         sum_prezzo=('sum_prezzo', 'sum'),
         count_prezzo=('count_prezzo', 'sum')
     ).reset_index()

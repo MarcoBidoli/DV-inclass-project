@@ -1,11 +1,10 @@
 import dash
 from dash import dcc, html, Input, Output, State, callback_context
 import dash_bootstrap_components as dbc
-import pandas as pd
 import json
-import os
 
 # Import custom utilities and components
+import config
 from utils.preprocessing import load_and_clean_data
 from utils.aggregations import get_regional_summary, get_time_series
 from utils.caching import setup_cache
@@ -26,7 +25,7 @@ app = dash.Dash(
 cache = setup_cache(app)
 
 # 2. Load Data
-DATA_PATH = 'data/fuel_prices.csv'
+DATA_PATH = 'data/filtered_fuel_prices_italy_20200101-20260331.csv'
 GEOJSON_PATH = 'data/italy_regions.geojson'
 
 full_df = load_and_clean_data(DATA_PATH)
@@ -35,7 +34,7 @@ with open(GEOJSON_PATH, 'r') as f:
 
 # Get filter options
 fuel_types = sorted(full_df['descCarburante'].unique())
-regions = sorted(full_df['DEN_REG'].unique())
+regions = sorted(full_df['Regione'].unique())
 years = sorted(full_df['year'].unique())
 
 # 3. Define Layout
@@ -43,7 +42,7 @@ app.layout = html.Div([
     # Header
     html.Div([
         dbc.Container([
-            html.H1("🇮🇹 Italy Fuel Price Dashboard"),
+            html.H1("Italy Fuel Price Dashboard"),
             html.P("Real-time regional analytics and historical trends. Source: Ministero dello Sviluppo Economico.", className="lead text-muted")
         ], fluid=True)
     ], className="dashboard-header py-4 bg-white shadow-sm mb-4"),
@@ -102,8 +101,8 @@ app.layout = html.Div([
     [State('play-interval', 'disabled')]
 )
 def toggle_play(n_clicks, disabled):
-    if n_clicks is None: return True, "▶️ Play"
-    return not disabled, "⏸️ Pause" if disabled else "▶️ Play"
+    if n_clicks is None: return True, "Play"
+    return not disabled, "Pause" if disabled else "Play"
 
 @app.callback(
     Output('year-slider', 'value'),
@@ -174,4 +173,7 @@ def update_all_plots(fuel_type, agg_level, year, multi_regions, selected_region)
 
 if __name__ == '__main__':
     from utils.preprocessing import REGION_MAPPING # Ensure mapping is accessible
-    app.run_server(debug=True, port=8050)
+    if config.DEBUG:
+        app.run(debug=True, port=8050)
+    else:
+        app.run(debug=False, port=8050)

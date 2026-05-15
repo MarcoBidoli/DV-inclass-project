@@ -9,7 +9,7 @@ def create_choropleth_map(df, geojson, fuel_type, year):
     fig = px.choropleth_mapbox(
         df,
         geojson=geojson,
-        locations='DEN_REG_MAPPED',
+        locations='REG_MAPPED',
         featureidkey='properties.reg_name',
         color='avg_price',
         color_continuous_scale="RdYlGn_r",
@@ -17,9 +17,9 @@ def create_choropleth_map(df, geojson, fuel_type, year):
         zoom=4.2,
         center={"lat": 41.8719, "lon": 12.5674},
         opacity=0.7,
-        hover_name='DEN_REG',
+        hover_name='Regione',
         hover_data={
-            'DEN_REG_MAPPED': False,
+            'REG_MAPPED': False,
             'avg_price': ':.3f',
             'deviation_abs': ':.3f'
         },
@@ -44,7 +44,7 @@ def create_deviation_map(df, geojson, fuel_type, year):
     fig = px.choropleth_mapbox(
         df,
         geojson=geojson,
-        locations='DEN_REG_MAPPED',
+        locations='REG_MAPPED',
         featureidkey='properties.reg_name',
         color='deviation_pct',
         color_continuous_scale="RdBu_r",
@@ -53,9 +53,9 @@ def create_deviation_map(df, geojson, fuel_type, year):
         zoom=4.2,
         center={"lat": 41.8719, "lon": 12.5674},
         opacity=0.7,
-        hover_name='DEN_REG',
+        hover_name='Regione',
         hover_data={
-            'DEN_REG_MAPPED': False,
+            'REG_MAPPED': False,
             'avg_price': ':.3f',
             'nat_avg': ':.3f',
             'deviation_pct': ':.2f'

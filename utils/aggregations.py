@@ -11,7 +11,7 @@ def get_regional_summary(df, year=None, fuel_type=None):
         filtered_df = filtered_df[filtered_df['descCarburante'] == fuel_type]
     
     # Regional Average
-    reg_avg = filtered_df.groupby(['DEN_REG', 'DEN_REG_MAPPED']).agg(
+    reg_avg = filtered_df.groupby(['Regione', 'REG_MAPPED']).agg(
         avg_price=('prezzo', 'mean'),
         count=('prezzo', 'count')
     ).reset_index()
@@ -35,18 +35,18 @@ def get_time_series(df, regions=None, fuel_types=None, agg_level='monthly'):
     """
     filtered_df = df.copy()
     if regions:
-        filtered_df = filtered_df[filtered_df['DEN_REG'].isin(regions)]
+        filtered_df = filtered_df[filtered_df['Regione'].isin(regions)]
     if fuel_types:
         filtered_df = filtered_df[filtered_df['descCarburante'].isin(fuel_types)]
     
     if agg_level == 'daily':
-        group_cols = ['Data', 'DEN_REG', 'descCarburante']
+        group_cols = ['Data', 'Regione', 'descCarburante']
     elif agg_level == 'monthly':
         filtered_df['Periodo'] = filtered_df['Data'].dt.to_period('M').dt.to_timestamp()
-        group_cols = ['Periodo', 'DEN_REG', 'descCarburante']
+        group_cols = ['Periodo', 'Regione', 'descCarburante']
     else: # yearly
         filtered_df['Periodo'] = filtered_df['Data'].dt.to_period('Y').dt.to_timestamp()
-        group_cols = ['Periodo', 'DEN_REG', 'descCarburante']
+        group_cols = ['Periodo', 'Regione', 'descCarburante']
         
     ts_data = filtered_df.groupby(group_cols)['prezzo'].mean().reset_index()
     
@@ -57,6 +57,6 @@ def get_time_series(df, regions=None, fuel_types=None, agg_level='monthly'):
         nat_cols = ['Periodo', 'descCarburante']
         
     nat_ts = filtered_df.groupby(nat_cols)['prezzo'].mean().reset_index()
-    nat_ts['DEN_REG'] = 'National Average'
+    nat_ts['Regione'] = 'National Average'
     
     return pd.concat([ts_data, nat_ts])
