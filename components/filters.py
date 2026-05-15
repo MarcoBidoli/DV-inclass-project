@@ -1,25 +1,6 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 
-def create_period_filter(min_date, max_date):
-    """
-    Creates the date range picker for KPIs and Line Chart.
-    """
-    return dbc.Card([
-        dbc.CardBody([
-            html.Label("Select Period"),
-            dcc.DatePickerRange(
-                id='period-filter',
-                min_date_allowed=min_date,
-                max_date_allowed=max_date,
-                start_date=min_date,
-                end_date=max_date,
-                display_format='YYYY-MM-DD',
-                className="w-100"
-            )
-        ])
-    ], className="mb-4 shadow-sm border-0")
-
 def create_theme_switch():
     """
     Creates a simple theme switch for Dark Mode.

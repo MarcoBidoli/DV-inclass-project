@@ -12,7 +12,7 @@ from utils.caching import setup_cache
 from components.maps import create_choropleth_map, create_deviation_map
 from components.barchart import create_bar_chart
 from components.linechart import create_line_chart
-from components.filters import create_period_filter, create_map_controls, create_region_filter, create_theme_switch
+from components.filters import create_map_controls, create_region_filter, create_theme_switch
 from components.kpi import create_kpi_section
 
 # 1. Initialize App
@@ -69,11 +69,10 @@ app.layout = html.Div([
     ], className="dashboard-header py-4 bg-white shadow-sm mb-4"),
 
     dbc.Container([
-        # Global Controls: KPI, Period, and Region Filter
+        # Global Controls: KPI and Region Filter
         html.Div([
             dbc.Row([
                 dbc.Col([
-                    create_period_filter(min_date, max_date),
                     create_region_filter(regions)
                 ], lg=4),
                 dbc.Col([
@@ -128,49 +127,19 @@ app.clientside_callback(
     Input('theme-switch', 'value')
 )
 
-# Line Chart (Global Period Filter)
-@app.callback(
-    Output('line-chart', 'figure'),
-    [Input('period-filter', 'start_date'),
-     Input('period-filter', 'end_date')]
-)
-def update_line_chart(start_date, end_date):
-    # Line Chart (National Average, Weekly)
-    ts_df = get_time_series(full_df, fuel_types=['Benzina', 'Gasolio'], agg_level='weekly', start_date=start_date, end_date=end_date)
-    line_fig = create_line_chart(ts_df)
-    
-    # Enable unified hover with vertical dotted line
-    line_fig.update_layout(
-        hovermode="x unified",
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        font=dict(color='#888'), # Default font color for chart elements
-        spikedistance=-1,
-        xaxis=dict(
-            showspikes=True,
-            spikemode="across",
-            spikesnap="cursor",
-            showline=True,
-            showgrid=True,
-            spikethickness=1,
-            spikedash="dot",
-            spikecolor="#999999"
-        )
-    )
-    return line_fig
-
-# Maps, KPIs and Ranking (Monthly Slider and Local Filters)
+# Maps, KPIs, Ranking and Line Chart
 @app.callback(
     [Output('choropleth-map', 'figure'),
      Output('deviation-map', 'figure'),
      Output('bar-chart', 'figure'),
-     Output('kpi-container', 'children')],
+     Output('kpi-container', 'children'),
+     Output('line-chart', 'figure')],
     [Input('map-fuel-toggle', 'value'),
      Input('month-slider', 'value'),
      Input('region-filter', 'value'),
      Input('theme-switch', 'value')]
 )
-def update_monthly_visuals(fuel_toggle, month_idx, filtered_regions, theme_value):
+def update_all_visuals(fuel_toggle, month_idx, filtered_regions, theme_value):
     # fuel_toggle is a list: [1] if checked (Gasolio), [] if unchecked (Benzina)
     fuel_type = 'Gasolio' if fuel_toggle and 1 in fuel_toggle else 'Benzina'
     selected_month = month_options[month_idx]
@@ -179,7 +148,7 @@ def update_monthly_visuals(fuel_toggle, month_idx, filtered_regions, theme_value
     label = selected_month['label']
     
     # Theme color
-    text_color = '#e0e0e0' if (theme_value and len(theme_value) > 0) else '#2c3e50'
+    text_color = '#f0f6fc' if (theme_value and len(theme_value) > 0) else '#2c3e50'
     
     # 1. KPIs (Synchronized with selected month)
     benzina_avg = get_kpi_data(full_df, 'Benzina', month=m, year=y)
@@ -197,16 +166,46 @@ def update_monthly_visuals(fuel_toggle, month_idx, filtered_regions, theme_value
     
     # Bar Chart (Now synchronized with the chosen fuel type)
     fig_bar = create_bar_chart(map_summary_df, fuel_type, label)
+
+    # 3. Line Chart (Full History, Monthly Granularity)
+    ts_df = get_time_series(full_df, regions=filtered_regions, fuel_types=['Benzina', 'Gasolio'], agg_level='monthly')
+    line_fig = create_line_chart(ts_df)
     
-    # Update chart themes
+    # Update chart themes and interactivity
+    chart_bg = 'rgba(0,0,0,0)'
+    line_chart_bg = '#f1f3f5' if text_color == '#2c3e50' else '#21262d'
+    
     for f in [fig_map, fig_dev, fig_bar]:
         f.update_layout(
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            font=dict(color=text_color)
+            paper_bgcolor=chart_bg,
+            plot_bgcolor=chart_bg,
+            font=dict(color=text_color, family='IBM Plex Sans')
         )
     
-    return fig_map, fig_dev, fig_bar, kpi_section
+    line_fig.update_layout(
+        paper_bgcolor=chart_bg,
+        plot_bgcolor=line_chart_bg,
+        font=dict(color=text_color, family='IBM Plex Sans')
+    )
+    
+    # Specific line chart hover enhancements
+    line_fig.update_layout(
+        hovermode="x unified",
+        spikedistance=-1,
+        xaxis=dict(
+            showspikes=True,
+            spikemode="across",
+            spikesnap="cursor",
+            showline=True,
+            showgrid=True,
+            spikethickness=1,
+            spikedash="dot",
+            spikecolor="#999999",
+            rangeslider=dict(visible=True)
+        )
+    )
+    
+    return fig_map, fig_dev, fig_bar, kpi_section, line_fig
 
 if __name__ == '__main__':
     if config.DEBUG:
