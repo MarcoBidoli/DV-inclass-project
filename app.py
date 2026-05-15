@@ -25,7 +25,7 @@ app = dash.Dash(
 cache = setup_cache(app)
 
 # 2. Load Data
-DATA_PATH = 'data/filtered_fuel_prices_italy_20200101-20260331.csv'
+DATA_PATH = 'data/filtered_fuel_prices_italy_20200101-20260518.csv'
 GEOJSON_PATH = 'data/italy_regions.geojson'
 
 full_df = load_and_clean_data(DATA_PATH)
