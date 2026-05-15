@@ -3,12 +3,13 @@ import dash_bootstrap_components as dbc
 
 def create_kpi_card(title, value, color):
     """
-    Creates a simple KPI card.
+    Creates a simple KPI card with digital font for value.
     """
     return dbc.Card([
         dbc.CardBody([
             html.H5(title, className="card-title text-muted mb-1", style={'fontSize': '0.9rem'}),
-            html.H2(f"€{value:.3f}", className="card-text mb-0", style={'color': color, 'fontWeight': 'bold'})
+            html.H2(f"€{value:.3f}", className="card-text mb-0", 
+                    style={'color': color, 'fontWeight': 'bold', 'fontFamily': 'DS-Digital', 'fontSize': '3.5rem'})
         ])
     ], className="shadow-sm border-0 mb-3")
 

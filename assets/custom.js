@@ -1,3 +1,13 @@
+window.dash_clientside = Object.assign({}, window.dash_clientside, {
+    clientside: {
+        toggle_theme: function(theme_value) {
+            const theme = (theme_value && theme_value.length > 0) ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            return theme === 'dark' ? 'dark-mode-active' : '';
+        }
+    }
+});
+
 // Wait for the Dash app to load
 window.addEventListener('load', function() {
     console.log("D3.js integration loaded");

@@ -20,9 +20,23 @@ def create_period_filter(min_date, max_date):
         ])
     ], className="mb-4 shadow-sm border-0")
 
+def create_theme_switch():
+    """
+    Creates a simple theme switch for Dark Mode.
+    """
+    return html.Div([
+        dbc.Checklist(
+            options=[{"label": "Dark Mode", "value": 1}],
+            value=[],
+            id="theme-switch",
+            switch=True,
+            className="ms-auto"
+        )
+    ], className="d-flex")
+
 def create_map_controls(month_options):
     """
-    Creates the fuel toggle switch (iOS style) and 100% width monthly slider.
+    Creates the fuel toggle switch and 100% width monthly slider without numeric tooltip.
     """
     return dbc.Card([
         dbc.CardBody([
@@ -52,7 +66,7 @@ def create_map_controls(month_options):
                         step=1,
                         value=len(month_options) - 1,
                         marks={i: month_options[i]['label'] for i in range(0, len(month_options), 4)},
-                        tooltip={"placement": "bottom", "always_visible": True}
+                        # Tooltip removed to avoid numeric display
                     )
                 ], width=12),
             ])

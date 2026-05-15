@@ -12,7 +12,7 @@ from utils.caching import setup_cache
 from components.maps import create_choropleth_map, create_deviation_map
 from components.barchart import create_bar_chart
 from components.linechart import create_line_chart
-from components.filters import create_period_filter, create_map_controls, create_region_filter
+from components.filters import create_period_filter, create_map_controls, create_region_filter, create_theme_switch
 from components.kpi import create_kpi_section
 
 # 1. Initialize App
@@ -20,7 +20,8 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[
         dbc.themes.BOOTSTRAP, 
-        "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+        "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap",
+        "https://fonts.cdnfonts.com/css/ds-digital"
     ],
     suppress_callback_exceptions=True,
     title="Italy Fuel Analytics"
@@ -55,8 +56,15 @@ app.layout = html.Div([
     # Header
     html.Div([
         dbc.Container([
-            html.H1("Italy Fuel Price Dashboard", className="fw-bold"),
-            html.P("Regional analytics and historical trends. Source: Ministero dello Sviluppo Economico.", className="lead text-muted")
+            dbc.Row([
+                dbc.Col([
+                    html.H1("Italy Fuel Price Dashboard", className="fw-bold mb-0"),
+                    html.P("Regional analytics and historical trends. Source: Ministero dello Sviluppo Economico.", className="lead text-muted mb-0")
+                ], md=9),
+                dbc.Col([
+                    create_theme_switch()
+                ], md=3, className="d-flex align-items-center justify-content-end")
+            ])
         ], fluid=True)
     ], className="dashboard-header py-4 bg-white shadow-sm mb-4"),
 
@@ -106,9 +114,19 @@ app.layout = html.Div([
         ])
 
     ], className="main-container pb-5", fluid=True)
-], style={'backgroundColor': '#f8f9fa', 'minHeight': '100vh'})
+], id="main-wrapper", style={'backgroundColor': 'var(--bg-light)', 'minHeight': '100vh'})
 
 # 4. Callbacks
+
+# Theme Switcher Logic
+app.clientside_callback(
+    dash.ClientsideFunction(
+        namespace='clientside',
+        function_name='toggle_theme'
+    ),
+    Output('main-wrapper', 'className'),
+    Input('theme-switch', 'value')
+)
 
 # Line Chart (Global Period Filter)
 @app.callback(
@@ -124,6 +142,9 @@ def update_line_chart(start_date, end_date):
     # Enable unified hover with vertical dotted line
     line_fig.update_layout(
         hovermode="x unified",
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='#888'), # Default font color for chart elements
         spikedistance=-1,
         xaxis=dict(
             showspikes=True,
@@ -146,15 +167,19 @@ def update_line_chart(start_date, end_date):
      Output('kpi-container', 'children')],
     [Input('map-fuel-toggle', 'value'),
      Input('month-slider', 'value'),
-     Input('region-filter', 'value')]
+     Input('region-filter', 'value'),
+     Input('theme-switch', 'value')]
 )
-def update_monthly_visuals(fuel_toggle, month_idx, filtered_regions):
+def update_monthly_visuals(fuel_toggle, month_idx, filtered_regions, theme_value):
     # fuel_toggle is a list: [1] if checked (Gasolio), [] if unchecked (Benzina)
     fuel_type = 'Gasolio' if fuel_toggle and 1 in fuel_toggle else 'Benzina'
     selected_month = month_options[month_idx]
     m = selected_month['month']
     y = selected_month['year']
     label = selected_month['label']
+    
+    # Theme color
+    text_color = '#e0e0e0' if (theme_value and len(theme_value) > 0) else '#2c3e50'
     
     # 1. KPIs (Synchronized with selected month)
     benzina_avg = get_kpi_data(full_df, 'Benzina', month=m, year=y)
@@ -173,7 +198,16 @@ def update_monthly_visuals(fuel_toggle, month_idx, filtered_regions):
     # Bar Chart (Now synchronized with the chosen fuel type)
     fig_bar = create_bar_chart(map_summary_df, fuel_type, label)
     
+    # Update chart themes
+    for f in [fig_map, fig_dev, fig_bar]:
+        f.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(color=text_color)
+        )
+    
     return fig_map, fig_dev, fig_bar, kpi_section
+
 if __name__ == '__main__':
     if config.DEBUG:
         app.run(debug=True, port=8050)

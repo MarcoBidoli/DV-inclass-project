@@ -68,7 +68,7 @@ def create_bar_chart(df, fuel_type, month_label):
                 line_color=color,
                 annotation_text=f"Avg {fuel_type} ({nat_avg:.3f} €/L)", 
                 annotation_position="bottom right",
-                annotation_font=dict(family='IBM Plex Sans', color=color)
+                annotation_font=dict(family='IBM Plex Sans', color=color) # color already fuel-specific
             )
     
     fig.update_layout(

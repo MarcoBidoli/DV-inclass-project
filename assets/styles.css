@@ -3,6 +3,28 @@
     --bg-light: #f8f9fa;
     --text-dark: #2c3e50;
     --border-radius: 12px;
+    --card-bg: white;
+    --header-bg: white;
+}
+
+[data-theme='dark'] {
+    --bg-light: #0d1117; /* Deeper dark for GitHub-like feel */
+    --text-dark: #f0f6fc; /* Brighter white for better contrast */
+    --card-bg: #161b22; /* Slightly lighter than bg for elevation */
+    --header-bg: #161b22;
+    --border-color: #30363d;
+}
+
+[data-theme='dark'] .card-text {
+    text-shadow: 0 0 10px currentColor; /* Glow effect for digital font in dark mode */
+}
+
+[data-theme='dark'] .text-muted {
+    color: #8b949e !important; /* Brighter muted text */
+}
+
+[data-theme='dark'] .card-container, [data-theme='dark'] .card {
+    border: 1px solid var(--border-color) !important;
 }
 
 body {
@@ -11,55 +33,62 @@ body {
     font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-.main-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dashboard-header {
+    background-color: var(--header-bg) !important;
     text-align: left;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid #333;
     padding-bottom: 1rem;
+    transition: all 0.3s ease;
 }
 
-.dashboard-header h1 {
-    font-weight: 800;
-    font-size: 2.5rem;
-    color: var(--text-dark);
+.card-container, .card, .card-body {
+    transition: all 0.3s ease !important;
+}
+
+.dark-mode-active .dashboard-header {
+    background-color: var(--header-bg) !important;
+    color: var(--text-dark) !important;
 }
 
 .card-container {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     height: 100%;
+    transition: background-color 0.3s ease;
 }
 
-.chart-title {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: #495057;
+.card, .card-body {
+    background-color: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    transition: background-color 0.3s ease;
 }
 
-/* Customizing Dash/Plotly specific elements */
-.js-plotly-plot .plotly .modebar {
-    top: -30px !important;
+/* Custom Blue Slider */
+.rc-slider-track {
+    background-color: #007bff !important;
 }
 
-/* Sticky Header Effect */
-.sticky-top-filters {
-    position: sticky;
-    top: 10px;
-    z-index: 1000;
+.rc-slider-handle {
+    border: solid 2px #007bff !important;
+    background-color: #fff !important;
+}
+
+.rc-slider-handle:hover {
+    border-color: #0056b3 !important;
+}
+
+.rc-slider-mark-text {
+    color: var(--text-dark) !important;
 }
 
 /* Advanced iOS-Style Toggle Switch with Internal Labels */
+
 .ios-switch .form-check-input {
     width: 7rem !important; /* Wider to fit full words */
     height: 2.2rem !important;
