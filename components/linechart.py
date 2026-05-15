@@ -1,34 +1,43 @@
 import plotly.express as px
 
-def create_line_chart(df, agg_level='monthly'):
+def create_line_chart(df):
     """
-    Creates the time series line chart.
+    Creates the time series line chart showing multiple fuel types.
     """
     if df.empty:
         return px.line(title="No data available")
     
-    x_col = 'Data' if 'Data' in df.columns else 'Periodo'
+    x_col = 'Periodo' if 'Periodo' in df.columns else 'Data'
+    
+    # Sort by period to ensure lines are continuous
+    df = df.sort_values(x_col)
     
     fig = px.line(
         df,
         x=x_col,
         y='prezzo',
-        color='Regione',
-        line_group='Regione',
-        hover_name='Regione',
-        title=f"<b>Price Evolution ({agg_level.capitalize()})</b>",
-        labels={'prezzo': 'Price (€/L)', x_col: 'Date', 'Regione': 'Region'},
-        color_discrete_map={'National Average': '#dc3545'}
+        color='descCarburante',
+        hover_name='descCarburante',
+        title="<b>Fuel Price Evolution Over Time</b>",
+        labels={'prezzo': 'Price (€/L)', x_col: 'Date', 'descCarburante': 'Fuel Type'},
+        color_discrete_map={
+            'Benzina': '#006400', # Dark Green
+            'Gasolio': '#E65100', # Dark Orange
+        }
     )
+    
+    # Make lines thicker
+    fig.update_traces(line=dict(width=3))
     
     fig.update_layout(
         xaxis=dict(
-            rangeslider=dict(visible=True),
+            rangeslider=dict(visible=False),
             type="date"
         ),
         yaxis=dict(title="Price (€/L)"),
-        margin={"t":60, "l":0, "r":20, "b":0},
-        plot_bgcolor='white',
+        margin={"t":60, "l":40, "r":20, "b":40},
+        plot_bgcolor='#f1f3f5', # Light gray background
+        paper_bgcolor='white',
         legend=dict(
             orientation="h",
             yanchor="bottom",
@@ -38,5 +47,8 @@ def create_line_chart(df, agg_level='monthly'):
         ),
         transition_duration=500
     )
+    
+    # Enable interactivity
+    fig.update_layout(dragmode='zoom')
     
     return fig

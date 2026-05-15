@@ -2,17 +2,21 @@ import plotly.express as px
 import json
 import os
 
-def create_choropleth_map(df, geojson, fuel_type, year):
+def create_choropleth_map(df, geojson, fuel_type, month_label):
     """
     Creates the absolute price choropleth map.
     """
+    # Define colorscale based on fuel type
+    # Benzina -> Greens, Gasolio -> Oranges
+    color_scale = "Greens" if fuel_type == "Benzina" else "Oranges"
+    
     fig = px.choropleth_mapbox(
         df,
         geojson=geojson,
         locations='REG_MAPPED',
         featureidkey='properties.reg_name',
         color='avg_price',
-        color_continuous_scale="RdYlGn_r",
+        color_continuous_scale=color_scale,
         mapbox_style="carto-positron",
         zoom=4.2,
         center={"lat": 41.8719, "lon": 12.5674},
@@ -21,25 +25,26 @@ def create_choropleth_map(df, geojson, fuel_type, year):
         hover_data={
             'REG_MAPPED': False,
             'avg_price': ':.3f',
-            'deviation_abs': ':.3f'
+            'nat_avg': ':.3f'
         },
-        labels={'avg_price': 'Avg Price (€/L)', 'deviation_abs': 'vs National Avg'},
-        title=f"<b>Average {fuel_type} Prices - {year}</b>"
+        labels={'avg_price': 'Avg Price (€/L)', 'nat_avg': 'Italy Avg'},
+        title=f"<b>Regional Fuel Prices - {fuel_type} ({month_label})</b>"
     )
     
     fig.update_layout(
         margin={"r":0,"t":40,"l":0,"b":0},
         title_x=0.05,
-        clickmode='event+select',
         transition_duration=500,
         coloraxis_colorbar=dict(title="€/L")
     )
     
     return fig
 
-def create_deviation_map(df, geojson, fuel_type, year):
+def create_deviation_map(df, geojson, fuel_type, month_label):
     """
     Creates the deviation map.
+    Using a diverging scale but customized for the fuel colors if possible.
+    Since diverging needs two ends, we'll use a standard diverging scale but ensure titles/labels match.
     """
     fig = px.choropleth_mapbox(
         df,
@@ -47,7 +52,7 @@ def create_deviation_map(df, geojson, fuel_type, year):
         locations='REG_MAPPED',
         featureidkey='properties.reg_name',
         color='deviation_pct',
-        color_continuous_scale="RdBu_r",
+        color_continuous_scale="RdBu_r", # Red is higher (worse), Blue is lower (better)
         color_continuous_midpoint=0,
         mapbox_style="carto-positron",
         zoom=4.2,
@@ -65,13 +70,12 @@ def create_deviation_map(df, geojson, fuel_type, year):
             'avg_price': 'Region Avg',
             'nat_avg': 'Italy Avg'
         },
-        title=f"<b>Deviation from National Average - {year}</b>"
+        title=f"<b>Regional Deviation from National Average - {fuel_type} ({month_label})</b>"
     )
     
     fig.update_layout(
         margin={"r":0,"t":40,"l":0,"b":0},
         title_x=0.05,
-        clickmode='event+select',
         transition_duration=500,
         coloraxis_colorbar=dict(title="% Diff")
     )

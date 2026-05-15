@@ -8,7 +8,7 @@
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -57,6 +57,64 @@ body {
     position: sticky;
     top: 10px;
     z-index: 1000;
+}
+
+/* Advanced iOS-Style Toggle Switch with Internal Labels */
+.ios-switch .form-check-input {
+    width: 7rem !important; /* Wider to fit full words */
+    height: 2.2rem !important;
+    margin-top: 0 !important;
+    background-color: #006400 !important; /* Benzina Green (Default) */
+    border: none !important;
+    background-image: none !important; /* Remove default Bootstrap dot */
+    position: relative !important;
+    border-radius: 2.2rem !important;
+    cursor: pointer;
+    transition: background-color 0.3s ease !important;
+    display: inline-block;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.ios-switch .form-check-input:checked {
+    background-color: #E65100 !important; /* Gasolio Dark Orange */
+}
+
+/* Custom Thumb (the "dot") */
+.ios-switch .form-check-input::after {
+    content: "Benzina";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 4rem;
+    height: calc(2.2rem - 6px);
+    background-color: white !important;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #006400; /* Text color matches fuel when inside white dot */
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.ios-switch .form-check-input:checked::after {
+    content: "Gasolio";
+    left: calc(7rem - 4rem - 3px);
+    color: #E65100;
+}
+
+.ios-switch .form-check-input:focus {
+    box-shadow: none !important;
+}
+
+/* Remove default Bootstrap focus shadow and border */
+.form-check-input:focus {
+    border-color: transparent !important;
+    outline: 0 !important;
 }
 
 /* Mobile Responsiveness */
