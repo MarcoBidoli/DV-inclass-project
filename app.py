@@ -125,7 +125,35 @@ app.layout = html.Div([
                 ], className="mb-3"),
                 dcc.Graph(id='line-chart', config={'displayModeBar': False, 'scrollZoom': False, 'staticPlot': False}, style={'height': '600px'})
             ], className="card-container p-4 shadow-sm mb-4 border-0 rounded"),
-        ])
+        ]),
+
+        # Footnote Section
+        html.Div([
+            dbc.Row([
+                dbc.Col([
+                    html.Hr(style={'borderColor': 'var(--text-dark)', 'opacity': '0.2'}),
+                    html.P("Sources and Historical Context:", className="fw-bold mb-2", style={'fontSize': '0.9rem'}),
+                    html.Ul([
+                        html.Li([
+                            "Feb 24, 2022: Russian invasion of Ukraine - ",
+                            html.A("La Repubblica", href="https://www.repubblica.it/esteri/2022/02/24/news/ucraina_russia_news_oggi_diretta-338988051/", target="_blank", className="text-decoration-none")
+                        ]),
+                        html.Li([
+                            "Mar 2022: Italian government excise duty cut - ",
+                            html.A("Il Sole 24 Ore", href="https://www.ilsole24ore.com/art/benzina-giu-25-cent-litro-ecco-quando-scatta-sconto-AE9XxfLB", target="_blank", className="text-decoration-none")
+                        ]),
+                        html.Li([
+                            "Feb 28, 2026: Conflict Escalation / Third Gulf War - ",
+                            html.A("La Stampa", href="https://www.lastampa.it/esteri/2026/02/28/news/e_iniziata_la_terza_guerra_del_golfo_obiettivo_il_reset_del_medio_oriente-15526148/", target="_blank", className="text-decoration-none")
+                        ]),
+                        html.Li([
+                            "Mar 19, 2026: Italian government emergency excise duty cut - ",
+                            html.A("ANSA", href="https://www.ansa.it/sito/notizie/economia/2026/03/19/il-governo-taglia-le-accise-per-20-giorni-contro-il-caro-carburante_e80d053a-881b-4e3a-8883-1a144b6cff43.html", target="_blank", className="text-decoration-none")
+                        ]),
+                    ], className="list-unstyled small text-muted", style={'fontSize': '0.85rem', 'lineHeight': '1.6'})
+                ])
+            ])
+        ], className="mt-5 mb-4")
 
     ], className="main-container pb-5", fluid=True)
 ], id="main-wrapper", style={'backgroundColor': 'var(--bg-light)', 'minHeight': '100vh'})
@@ -221,8 +249,8 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     events = [
         {"date": datetime(2022, 2, 24), "text": "Russian invasion of Ukraine", "y": 0.95},
         {"date": datetime(2022, 3, 22), "text": "Italian government excise duty cut", "y": 0.85},
-        {"date": datetime(2026, 2, 28), "text": "Attack of Iran from USA", "y": 0.95},
-        {"date": datetime(2026, 3, 18), "text": "Italian government excise duty cut", "y": 0.85},
+        {"date": datetime(2026, 2, 28), "text": "Attack on Iran / Third Gulf War", "y": 0.95},
+        {"date": datetime(2026, 3, 19), "text": "Italian government excise duty cut", "y": 0.85},
     ]
 
     for event in events:

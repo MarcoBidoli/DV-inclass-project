@@ -2,9 +2,19 @@
     --primary-color: #007bff;
     --bg-light: rgb(248, 248, 246);
     --text-dark: #2c3e50;
-    --border-radius: 12px;
     --card-bg: rgb(248, 248, 246);
     --header-bg: rgb(248, 248, 246);
+
+
+    --tw-ring-inset: ;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 .25rem 1.25rem hsl(var(--always-black)/3.5%),0 0 0 .5px hsla(var(--border-300)/.15);
+
+    --bs-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+    --bs-box-shadow-sm: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+    --bs-box-shadow-lg: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+    --bs-box-shadow-inset: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
 
     /* Light blue Mac-like palette */
   --Dash-Fill-Disabled: rgba(173, 216, 230, 0.15);        /* light blue, very faint */
@@ -27,6 +37,10 @@
   --Dash-Text-Primary: rgba(20, 40, 80, 0.85);            /* dark cool blue for primary text */
   --Dash-Text-Strong: rgba(10, 25, 60, 0.92);             /* very dark cool blue */
   --Dash-Text-Weak: rgba(30, 60, 100, 0.65);              /* mid cool blue-gray */
+}
+
+.dash-input-container.dash-range-slider-input.dash-range-slider-max-input {
+  display: none;
 }
 
 [data-theme='dark'] {
@@ -73,6 +87,10 @@ body {
     margin-bottom: 2rem;
     border-bottom: 2px solid #333;
     padding-bottom: 1rem;
+}
+
+.main-container {
+    width: 55%;
 }
 
 /* Cards */
