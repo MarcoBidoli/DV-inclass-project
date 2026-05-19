@@ -1,73 +1,39 @@
-# ⛽ Italy Fuel Price Dashboard
+# Italy Fuel Price Dashboard
 
-An interactive Dash/Plotly dashboard to visualize and analyze fuel price trends across Italy (2018-2023). This dashboard processes station-level daily data to provide regional insights via heatmaps, regional rankings (bar race), and price distributions.
+This project is a data visualization dashboard designed to provide Italian citizens with a comprehensive overview of fuel prices across the country. It aims to offer transparency and historical context regarding the costs of Benzina (Petrol) and Gasolio (Diesel).
 
-## 🌟 Features
+## Dataset
 
-- **Price Heatmap**: A choropleth map of Italy showing average monthly prices per region.
-- **Regional Ranking (Bar Race)**: An animated bar chart that sorts regions from most to least expensive.
-- **Price Distribution**: A histogram showing the frequency of prices for the selected fuel type and period.
-- **Interactive Controls**:
-  - **Play/Pause**: Animate the dashboard over time.
-  - **Filters**: Filter by Fuel Type (Benzina, Gasolio, GPL, etc.), Region, and Year.
-  - **Time Slider**: Manually scrub through months from 2018 to 2023.
+The dataset used in this application is generated using the [fuel-price-Italy-dataset-generator](https://github.com/MarcoBidoli/fuel-price-Italy-dataset-generator). It aggregates open data from the *Ministero delle Imprese e del Made in Italy (MIMIT)* to provide regional and temporal insights.
 
-## 📋 Requirements
+## Project Goal
 
-- Python 3.8 or higher
-- `pandas`
-- `dash`
-- `plotly`
-- `numpy`
+The primary objective is to empower citizens with easy-to-digest information about fuel price trends, regional differences, and the impact of global events on local costs. The dashboard is structured to show data by importance:
 
-## 🚀 Installation & Setup
+1.  **Absolute Price (KPIs)**: Immediate view of the current average prices for major fuel types.
+2.  **Regional Price Map**: A choropleth map showing the distribution of absolute prices across Italian regions.
+3.  **Regional Deviation Map (%)**: A specialized map highlighting how each region deviates from the national average, providing a clear comparison of relative costs.
+4.  **Price Evolution (Line Chart)**: A historical view of price changes over time, including markers for significant geopolitical and economic events.
 
-### 1. Clone the Repository
-```bash
-git clone <repository-url>
-cd DV-inclass-project
-```
+## Technologies Used
 
-### 2. Create a Virtual Environment
+The dashboard is built using a modern Python-based data stack:
 
-#### macOS / Linux:
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
+*   **[Dash](https://dash.plotly.com/)**: A productive Python framework for building web analytic applications.
+*   **[Plotly](https://plotly.com/python/)**: Used for creating interactive and responsive maps and charts.
+*   **[Pandas](https://pandas.pydata.org/)**: For robust data manipulation and cleaning.
+*   **[Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/)**: For a responsive, mobile-friendly layout and themed components.
+*   **[Flask-Caching](https://flask-caching.readthedocs.io/)**: To optimize performance through intelligent data caching.
 
-#### Windows:
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
+## Getting Started
 
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Data Processing (One-time)
-The raw data is large (194M rows). Run the aggregation script to generate the summarized files used by the dashboard:
-```bash
-python aggregate_data.py
-```
-*Note: This may take several minutes depending on your hardware.*
-
-### 5. Run the Dashboard
-```bash
-python app.py
-```
-Once running, open your browser and navigate to: `http://127.0.0.1:8050/`
-
-## 📂 Project Structure
-
-- `app.py`: The main Dash application.
-- `aggregate_data.py`: Script to process raw CSV files into optimized summaries.
-- `limits_IT_regions.geojson`: GeoJSON file for Italian regional boundaries.
-- `prezzi_daily_by_year/`: Folder containing raw yearly CSV data.
-- `summary_data.csv`: Generated regional monthly averages.
-- `distribution_data.csv`: Generated representative price samples.
-
----
-*Created for the Data Visualization Course.*
+1.  Clone the repository.
+2.  Install the dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Run the application:
+    ```bash
+    python app.py
+    ```
+4.  Open your browser and navigate to `http://127.0.0.1:8050`.
