@@ -143,6 +143,10 @@ app.layout = html.Div([
                             html.A("Il Sole 24 Ore", href="https://www.ilsole24ore.com/art/benzina-giu-25-cent-litro-ecco-quando-scatta-sconto-AE9XxfLB", target="_blank", className="text-decoration-none")
                         ]),
                         html.Li([
+                            "Jan 1, 2026: Diesel costs as much as Petrol - ",
+                            html.A("Il Post", href="https://www.ilpost.it/2025/12/31/aumento-prezzo-diesel-allineamento-accise/", target="_blank", className="text-decoration-none")
+                        ]),
+                        html.Li([
                             "Feb 28, 2026: Conflict Escalation / Third Gulf War - ",
                             html.A("La Stampa", href="https://www.lastampa.it/esteri/2026/02/28/news/e_iniziata_la_terza_guerra_del_golfo_obiettivo_il_reset_del_medio_oriente-15526148/", target="_blank", className="text-decoration-none")
                         ]),
@@ -184,8 +188,8 @@ app.clientside_callback(
      Input('time-granularity', 'value')]
 )
 def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
-    # fuel_toggle is a list: [1] if checked (Gasolio), [] if unchecked (Benzina)
-    fuel_type = 'Gasolio' if fuel_toggle and 1 in fuel_toggle else 'Benzina'
+    # fuel_toggle is a list: [1] if checked (Diesel), [] if unchecked (Petrol)
+    fuel_type = 'Diesel' if fuel_toggle and 1 in fuel_toggle else 'Petrol'
     selected_month = month_options[month_idx]
     m = selected_month['month']
     y = selected_month['year']
@@ -198,9 +202,9 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     text_color = '#f0f6fc' if (theme_value and len(theme_value) > 0) else '#2c3e50'
 
     # 1. KPIs (Synchronized with selected month)
-    benzina_avg = get_kpi_data(full_df, 'Benzina', month=m, year=y)
-    gasolio_avg = get_kpi_data(full_df, 'Gasolio', month=m, year=y)
-    kpi_section = create_kpi_section(benzina_avg, gasolio_avg)
+    petrol_avg = get_kpi_data(full_df, 'Petrol', month=m, year=y)
+    diesel_avg = get_kpi_data(full_df, 'Diesel', month=m, year=y)
+    kpi_section = create_kpi_section(petrol_avg, diesel_avg)
 
     # 2. Summary Data for Maps (Filtered by selected fuel type)
     map_summary_df = get_regional_summary(full_df, month=m, year=y, fuel_type=fuel_type)
@@ -213,7 +217,7 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     fig_bar = create_bar_chart(map_summary_df, fuel_type, label)
 
     # 3. Line Chart (Full History, User-selected Granularity)
-    ts_df = get_time_series(full_df, regions=None, fuel_types=['Benzina', 'Gasolio'], agg_level=granularity)
+    ts_df = get_time_series(full_df, regions=None, fuel_types=['Petrol', 'Diesel'], agg_level=granularity)
     line_fig = create_line_chart(ts_df)
     
     # Update chart themes and interactivity
@@ -249,6 +253,7 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     events = [
         {"date": datetime(2022, 2, 24), "text": "Russian invasion of Ukraine", "y": 0.95},
         {"date": datetime(2022, 3, 22), "text": "Italian government excise duty cut", "y": 0.85},
+        {"date": datetime(2026, 1, 1), "text": "Diesel costs as much as Petrol", "y": 0.95},
         {"date": datetime(2026, 2, 28), "text": "Attack on Iran / Third Gulf War", "y": 0.95},
         {"date": datetime(2026, 3, 19), "text": "Italian government excise duty cut", "y": 0.85},
     ]

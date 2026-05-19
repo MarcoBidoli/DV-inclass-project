@@ -25,6 +25,11 @@ REGION_MAPPING = {
     'Sardegna': 'Sardegna'
 }
 
+FUEL_MAPPING = {
+    'Benzina': 'Petrol',
+    'Gasolio': 'Diesel'
+}
+
 def load_and_clean_data(file_path):
     if not os.path.exists(file_path):
         return pd.DataFrame()
@@ -38,6 +43,10 @@ def load_and_clean_data(file_path):
     
     # Apply mapping
     df['REG_MAPPED'] = df['Regione'].map(lambda x: REGION_MAPPING.get(x, x))
+    
+    # Map fuel types to English labels
+    if 'descCarburante' in df.columns:
+        df['descCarburante'] = df['descCarburante'].map(lambda x: FUEL_MAPPING.get(x, x))
     
     # Remove outliers or invalid prices if any
     df = df[df['prezzo'] > 0]

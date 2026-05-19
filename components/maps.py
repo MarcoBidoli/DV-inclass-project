@@ -10,7 +10,7 @@ def create_choropleth_map(df, geojson, fuel_type, month_label):
     """
 
     # Fuel-dependent colors
-    color_scale = "Greens" if fuel_type == "Benzina" else "Oranges"
+    color_scale = "Greens" if fuel_type == "Petrol" else "YlOrBr"
 
     fig = px.choropleth(
         df,

@@ -1,6 +1,6 @@
 # Italy Fuel Price Dashboard
 
-This project is a data visualization dashboard designed to provide Italian citizens with a comprehensive overview of fuel prices across the country. It aims to offer transparency and historical context regarding the costs of Benzina (Petrol) and Gasolio (Diesel).
+This project is a data visualization dashboard designed to provide Italian citizens with a comprehensive overview of fuel prices across the country. It aims to offer transparency and historical context regarding the costs of Petrol and Diesel.
 
 ## Dataset
 

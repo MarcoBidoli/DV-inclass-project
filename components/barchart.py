@@ -12,8 +12,8 @@ def create_bar_chart(df, fuel_type, month_label):
     df_sorted = df.sort_values('avg_price', ascending=True)
     
     fuel_colors = {
-        'Benzina': '#006400', # Dark Green
-        'Gasolio': '#E65100'  # Dark Orange
+        'Petrol': '#006400', # Dark Green
+        'Diesel': '#FBC02D'  # Dark Yellow
     }
     
     color = fuel_colors.get(fuel_type, '#6c757d')
@@ -63,10 +63,10 @@ def create_bar_chart(df, fuel_type, month_label):
                 x=nat_avg, 
                 line_width=2, 
                 line_dash="dot", 
-                line_color=color,
+                line_color='black',
                 annotation_text=f"Avg {fuel_type} ({nat_avg:.3f} €/L)", 
                 annotation_position="bottom right",
-                annotation_font=dict(family='Source Serif 4', color=color) # color already fuel-specific
+                annotation_font=dict(family='Source Serif 4', color='black')
             )
     
     fig.update_layout(

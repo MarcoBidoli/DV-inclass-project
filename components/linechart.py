@@ -20,8 +20,8 @@ def create_line_chart(df):
         hover_name='descCarburante',
         labels={'prezzo': 'Price (€/L)', x_col: 'Date', 'descCarburante': 'Fuel Type'},
         color_discrete_map={
-            'Benzina': '#006400', # Dark Green
-            'Gasolio': '#E65100', # Dark Orange
+            'Petrol': '#006400', # Dark Green
+            'Diesel': '#FBC02D', # Dark Yellow
         }
     )
     

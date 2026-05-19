@@ -206,11 +206,11 @@ body {
 }
 
 .ios-switch .form-check-input:checked {
-    background-color: #E65100 !important;
+    background-color: #FBC02D !important;
 }
 
 .ios-switch .form-check-input::after {
-    content: "Benzina";
+    content: "Petrol";
     position: absolute;
     top: 3px;
     left: 3px;
@@ -229,9 +229,9 @@ body {
 }
 
 .ios-switch .form-check-input:checked::after {
-    content: "Gasolio";
+    content: "Diesel";
     left: calc(7rem - 4rem - 3px);
-    color: #E65100;
+    color: #FBC02D;
 }
 
 /* =========================
