@@ -8,8 +8,11 @@ def create_kpi_card(title, value, color):
     return dbc.Card([
         dbc.CardBody([
             html.H5(title, className="card-title text-muted mb-1", style={'fontSize': '0.9rem'}),
-            html.H2(f"€{value:.3f}", className="card-text mb-0", 
-                    style={'color': color, 'fontWeight': 'bold', 'fontFamily': 'DS-Digital', 'fontSize': '3.5rem'})
+            html.H2([
+                html.Span("€", style={'fontSize': '1.75rem', 'verticalAlign': 'baseline', 'marginRight': '5px'}),
+                f"{value:.3f}"
+            ], className="kpi-value mb-0", 
+               style={'color': color, 'fontWeight': 'bold', 'fontFamily': 'DS-Digital', 'fontSize': '3.5rem', 'display': 'flex', 'alignItems': 'baseline'})
         ])
     ], className="shadow-sm border-0 mb-3")
 

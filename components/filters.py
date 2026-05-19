@@ -53,20 +53,3 @@ def create_map_controls(month_options):
             ])
         ])
     ], className="mb-4 shadow-sm border-0")
-
-def create_region_filter(regions):
-    """
-    Creates the region multi-select filter for the ranking chart.
-    """
-    return dbc.Card([
-        dbc.CardBody([
-            html.Label("Regions"),
-            dcc.Dropdown(
-                id='region-filter',
-                options=[{'label': r, 'value': r} for r in regions],
-                value=[],
-                multi=True,
-                placeholder="Select regions to filter ranking..."
-            )
-        ])
-    ], className="mb-4 shadow-sm border-0")

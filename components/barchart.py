@@ -72,12 +72,13 @@ def create_bar_chart(df, fuel_type, month_label):
             )
     
     fig.update_layout(
-        title=f"<b>Regional {fuel_type} Price Ranking ({month_label})</b>",
+        title=f"<b>{fuel_type} ({month_label})</b>",
         title_font=dict(family='IBM Plex Sans', size=20),
         xaxis=dict(title="Average Price (€/L)", range=[0, df_sorted['avg_price'].max() * 1.15], tickfont=dict(family='IBM Plex Sans')),
         yaxis=dict(title="", showticklabels=False), # Hide standard y-axis labels
         margin={"t":60, "l":0, "r":20, "b":40},
-        plot_bgcolor='white',
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
         height=700,
         barmode='overlay',
         transition_duration=500,

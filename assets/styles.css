@@ -15,7 +15,7 @@
     --border-color: #30363d;
 }
 
-[data-theme='dark'] .card-text {
+[data-theme='dark'] .card-text, [data-theme='dark'] .kpi-value {
     text-shadow: 0 0 10px currentColor; /* Glow effect for digital font in dark mode */
 }
 
@@ -83,6 +83,35 @@ body {
     border-color: #0056b3 !important;
 }
 
+/* Ensure all labels and text within cards follow the theme, excluding fuel prices */
+[data-theme='dark'] label, 
+[data-theme='dark'] .form-label,
+[data-theme='dark'] .card-title,
+[data-theme='dark'] .card-text:not(.kpi-value),
+[data-theme='dark'] .h4 {
+    color: var(--text-dark) !important;
+}
+
+/* Specific Slider Mark Styling */
+[data-theme='dark'] .rc-slider-mark-text {
+    color: var(--text-dark) !important;
+    opacity: 0.8;
+}
+
+[data-theme='dark'] .rc-slider-mark-text-active {
+    color: var(--text-dark) !important;
+    font-weight: bold;
+    opacity: 1;
+}
+
+.rc-slider-rail {
+    background-color: #e9ecef !important;
+}
+
+[data-theme='dark'] .rc-slider-rail {
+    background-color: #30363d !important;
+}
+
 .rc-slider-mark-text {
     color: var(--text-dark) !important;
 }
@@ -144,6 +173,46 @@ body {
 .form-check-input:focus {
     border-color: transparent !important;
     outline: 0 !important;
+}
+
+/* Dash Dropdown Dark Mode Styling */
+[data-theme='dark'] .Select-control {
+    background-color: #161b22 !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme='dark'] .Select-value-label {
+    color: var(--text-dark) !important;
+}
+
+[data-theme='dark'] .Select-menu-outer {
+    background-color: #161b22 !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme='dark'] .VirtualizedSelectOption {
+    background-color: #161b22 !important;
+    color: var(--text-dark) !important;
+}
+
+[data-theme='dark'] .VirtualizedSelectFocusedOption {
+    background-color: #30363d !important;
+    color: var(--text-dark) !important;
+}
+
+[data-theme='dark'] .Select--multi .Select-value {
+    background-color: #30363d !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-dark) !important;
+}
+
+[data-theme='dark'] .Select--multi .Select-value-icon {
+    border-right-color: var(--border-color) !important;
+}
+
+[data-theme='dark'] .Select--multi .Select-value-icon:hover {
+    background-color: #c9d1d9 !important;
+    color: #0d1117 !important;
 }
 
 /* Mobile Responsiveness */

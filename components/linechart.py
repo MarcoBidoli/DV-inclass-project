@@ -18,7 +18,6 @@ def create_line_chart(df):
         y='prezzo',
         color='descCarburante',
         hover_name='descCarburante',
-        title="<b>Fuel Price Evolution Over Time</b>",
         labels={'prezzo': 'Price (€/L)', x_col: 'Date', 'descCarburante': 'Fuel Type'},
         color_discrete_map={
             'Benzina': '#006400', # Dark Green
@@ -36,8 +35,8 @@ def create_line_chart(df):
         ),
         yaxis=dict(title="Price (€/L)"),
         margin={"t":60, "l":40, "r":20, "b":40},
-        plot_bgcolor='#f1f3f5', # Light gray background
-        paper_bgcolor='white',
+        plot_bgcolor='rgba(0,0,0,0)', 
+        paper_bgcolor='rgba(0,0,0,0)',
         legend=dict(
             orientation="h",
             yanchor="bottom",

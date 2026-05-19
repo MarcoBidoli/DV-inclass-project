@@ -28,7 +28,7 @@ def create_choropleth_map(df, geojson, fuel_type, month_label):
             'nat_avg': ':.3f'
         },
         labels={'avg_price': 'Avg Price (€/L)', 'nat_avg': 'Italy Avg'},
-        title=f"<b>Regional Fuel Prices - {fuel_type} ({month_label})</b>"
+        title=f"<b>{fuel_type} ({month_label})</b>"
     )
     
     fig.update_layout(
@@ -70,7 +70,7 @@ def create_deviation_map(df, geojson, fuel_type, month_label):
             'avg_price': 'Region Avg',
             'nat_avg': 'Italy Avg'
         },
-        title=f"<b>Regional Deviation from National Average - {fuel_type} ({month_label})</b>"
+        title=f"<b>{fuel_type} ({month_label})</b>"
     )
     
     fig.update_layout(
