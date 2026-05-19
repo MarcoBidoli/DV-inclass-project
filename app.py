@@ -44,6 +44,14 @@ month_options = [
     for _, row in month_df.iterrows()
 ]
 
+# Generate static year marks
+YEAR_MARKS = {}
+last_year = None
+for i, opt in enumerate(month_options):
+    if opt['year'] != last_year:
+        YEAR_MARKS[i] = {'label': str(opt['year']), 'style': {'color': '#bdc3c7'}} # Light gray
+        last_year = opt['year']
+
 # 3. Define Layout
 app.layout = html.Div([
     # Header
@@ -198,8 +206,9 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     # Theme color
     text_color = '#f0f6fc' if (theme_value and len(theme_value) > 0) else '#2c3e50'
 
-    # Update slider marks to show only the current label on top
-    slider_marks = {month_idx: {'label': label, 'style': {'fontWeight': 'bold'}}}
+    # Update slider marks: static year marks + current selection
+    slider_marks = {**YEAR_MARKS}
+    slider_marks[month_idx] = {'label': label, 'style': {'fontWeight': 'bold', 'color': text_color}}
     
     # 1. KPIs (Synchronized with selected month)
     petrol_avg = get_kpi_data(full_df, 'Petrol', month=m, year=y)
