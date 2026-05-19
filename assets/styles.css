@@ -5,6 +5,28 @@
     --border-radius: 12px;
     --card-bg: rgb(248, 248, 246);
     --header-bg: rgb(248, 248, 246);
+
+    /* Light blue Mac-like palette */
+  --Dash-Fill-Disabled: rgba(173, 216, 230, 0.15);        /* light blue, very faint */
+  --Dash-Fill-Interactive-Strong: #4a90e2;                /* vibrant light blue */
+  --Dash-Fill-Interactive-Weak: rgba(135, 206, 235, 0.12); /* sky blue, subtle */
+  --Dash-Fill-Inverse-Strong: #fff;                       /* keep white for contrast */
+  --Dash-Fill-Primary-Active: rgba(74, 144, 226, 0.10);   /* light blue active */
+  --Dash-Fill-Primary-Hover: rgba(74, 144, 226, 0.06);    /* light blue hover */
+
+  /* Mac-like soft shading (lighter, cooler) */
+  --Dash-Shading-Strong: rgba(30, 60, 100, 0.25);         /* cool dark shading */
+  --Dash-Shading-Weak: rgba(30, 60, 100, 0.12);           /* subtle cool shading */
+
+  /* Light blue strokes with good contrast */
+  --Dash-Stroke-Strong: rgba(30, 90, 160, 0.45);          /* medium blue stroke */
+  --Dash-Stroke-Weak: rgba(135, 206, 235, 0.25);          /* light blue weak stroke */
+
+  /* Text colors tuned for light blue theme */
+  --Dash-Text-Disabled: rgba(30, 60, 100, 0.55);          /* muted cool blue-gray */
+  --Dash-Text-Primary: rgba(20, 40, 80, 0.85);            /* dark cool blue for primary text */
+  --Dash-Text-Strong: rgba(10, 25, 60, 0.92);             /* very dark cool blue */
+  --Dash-Text-Weak: rgba(30, 60, 100, 0.65);              /* mid cool blue-gray */
 }
 
 [data-theme='dark'] {
@@ -13,6 +35,26 @@
     --card-bg: rgb(31, 31, 30);
     --header-bg: rgb(31, 31, 30);
     --border-color: #30363d;
+
+
+    /* Dark-mode dash colors (light text on dark background) */
+  --Dash-Text-Strong: #f0f6fc;          /* bright, readable text */
+  --Dash-Text-Primary: #e6edf3;
+  --Dash-Text-Weak: #8b949e;
+  --Dash-Text-Disabled: #6e7681;
+
+  --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.06);
+  --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.10);
+  --Dash-Fill-Interactive-Strong: #58a6ff;
+  --Dash-Fill-Interactive-Weak: rgba(88, 166, 255, 0.15);
+  --Dash-Fill-Disabled: rgba(255, 255, 255, 0.05);
+  --Dash-Fill-Inverse-Strong: #0d1117;
+
+  --Dash-Shading-Strong: rgba(0, 0, 0, 0.4);
+  --Dash-Shading-Weak: rgba(0, 0, 0, 0.25);
+
+  --Dash-Stroke-Strong: rgba(240, 246, 252, 0.3);
+  --Dash-Stroke-Weak: rgba(240, 246, 252, 0.15);
 }
 
 /* Base */
