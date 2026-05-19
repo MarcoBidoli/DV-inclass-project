@@ -76,10 +76,12 @@ def create_deviation_map(df, geojson, fuel_type, month_label):
             'REG_MAPPED': False,
             'avg_price': ':.3f',
             'nat_avg': ':.3f',
-            'deviation_pct': ':.2f'
+            'deviation_pct': ':.2f',
+            'deviation_abs': ':.3f'
         },
         labels={
             'deviation_pct': 'Deviation (%)',
+            'deviation_abs': 'Diff (€/L)',
             'avg_price': 'Region Avg',
             'nat_avg': 'Italy Avg'
         },
