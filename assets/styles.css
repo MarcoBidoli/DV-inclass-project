@@ -16,27 +16,27 @@
     --bs-box-shadow-lg: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
     --bs-box-shadow-inset: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
 
-    /* Light blue Mac-like palette */
-  --Dash-Fill-Disabled: rgba(173, 216, 230, 0.15);        /* light blue, very faint */
-  --Dash-Fill-Interactive-Strong: #4a90e2;                /* vibrant light blue */
-  --Dash-Fill-Interactive-Weak: rgba(135, 206, 235, 0.12); /* sky blue, subtle */
-  --Dash-Fill-Inverse-Strong: #fff;                       /* keep white for contrast */
-  --Dash-Fill-Primary-Active: rgba(74, 144, 226, 0.10);   /* light blue active */
-  --Dash-Fill-Primary-Hover: rgba(74, 144, 226, 0.06);    /* light blue hover */
+        /* Light blue Mac-like palette */
+    --Dash-Fill-Disabled: rgba(173, 216, 230, 0.15);        /* light blue, very faint */
+    --Dash-Fill-Interactive-Strong: #4a90e2;                /* vibrant light blue */
+    --Dash-Fill-Interactive-Weak: rgba(135, 206, 235, 0.12); /* sky blue, subtle */
+    --Dash-Fill-Inverse-Strong: #fff;                       /* keep white for contrast */
+    --Dash-Fill-Primary-Active: rgba(74, 144, 226, 0.10);   /* light blue active */
+    --Dash-Fill-Primary-Hover: rgba(74, 144, 226, 0.06);    /* light blue hover */
 
-  /* Mac-like soft shading (lighter, cooler) */
-  --Dash-Shading-Strong: rgba(30, 60, 100, 0.25);         /* cool dark shading */
-  --Dash-Shading-Weak: rgba(30, 60, 100, 0.12);           /* subtle cool shading */
+    /* Mac-like soft shading (lighter, cooler) */
+    --Dash-Shading-Strong: rgba(30, 60, 100, 0.25);         /* cool dark shading */
+    --Dash-Shading-Weak: rgba(30, 60, 100, 0.12);           /* subtle cool shading */
 
-  /* Light blue strokes with good contrast */
-  --Dash-Stroke-Strong: rgba(30, 90, 160, 0.45);          /* medium blue stroke */
-  --Dash-Stroke-Weak: rgba(135, 206, 235, 0.25);          /* light blue weak stroke */
+    /* Light blue strokes with good contrast */
+    --Dash-Stroke-Strong: rgba(30, 90, 160, 0.45);          /* medium blue stroke */
+    --Dash-Stroke-Weak: rgba(135, 206, 235, 0.25);          /* light blue weak stroke */
 
-  /* Text colors tuned for light blue theme */
-  --Dash-Text-Disabled: rgba(30, 60, 100, 0.55);          /* muted cool blue-gray */
-  --Dash-Text-Primary: rgba(20, 40, 80, 0.85);            /* dark cool blue for primary text */
-  --Dash-Text-Strong: rgba(10, 25, 60, 0.92);             /* very dark cool blue */
-  --Dash-Text-Weak: rgba(30, 60, 100, 0.65);              /* mid cool blue-gray */
+    /* Text colors tuned for light blue theme */
+    --Dash-Text-Disabled: rgba(30, 60, 100, 0.55);          /* muted cool blue-gray */
+    --Dash-Text-Primary: rgba(20, 40, 80, 0.85);            /* dark cool blue for primary text */
+    --Dash-Text-Strong: rgba(10, 25, 60, 0.92);             /* very dark cool blue */
+    --Dash-Text-Weak: rgba(30, 60, 100, 0.65);              /* mid cool blue-gray */
 }
 
 .dash-input-container.dash-range-slider-input.dash-range-slider-max-input {
