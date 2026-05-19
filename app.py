@@ -30,7 +30,7 @@ app = dash.Dash(
 
 # 2. Setup Data and Cache
 cache = setup_cache(app)
-data_path = os.path.join(os.path.dirname(__file__), 'data', 'filtered_fuel_prices_italy_20200101-20260518.csv')
+data_path = os.path.join(os.path.dirname(__file__), 'data', 'filtered_fuel_prices_italy_20200101-20260331.csv')
 full_df = load_and_clean_data(data_path)
 geojson_path = os.path.join(os.path.dirname(__file__), 'data', 'italy_regions.geojson')
 with open(geojson_path, 'r') as f:
