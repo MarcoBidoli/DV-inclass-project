@@ -46,8 +46,8 @@ def create_map_controls(month_options):
                         max=len(month_options) - 1,
                         step=1,
                         value=len(month_options) - 1,
-                        marks={i: month_options[i]['label'] for i in range(0, len(month_options), 4)},
-                        # Tooltip removed to avoid numeric display
+                        marks={},
+                        updatemode='drag'
                     )
                 ], width=12),
             ])

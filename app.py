@@ -39,7 +39,7 @@ with open(geojson_path, 'r') as f:
 regions = sorted(full_df['Regione'].unique())
 month_df = full_df[['year', 'month']].drop_duplicates().sort_values(['year', 'month'])
 month_options = [
-    {'label': f"{row['month']}/{row['year']}", 
+    {'label': datetime(row['year'], row['month'], 1).strftime('%B %Y'), 
      'year': row['year'], 'month': row['month']} 
     for _, row in month_df.iterrows()
 ]
@@ -148,7 +148,8 @@ app.clientside_callback(
      Output('deviation-map', 'figure'),
      Output('bar-chart', 'figure'),
      Output('kpi-container', 'children'),
-     Output('line-chart', 'figure')],
+     Output('line-chart', 'figure'),
+     Output('month-slider', 'marks')],
     [Input('map-fuel-toggle', 'value'),
      Input('month-slider', 'value'),
      Input('theme-switch', 'value'),
@@ -162,6 +163,9 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     y = selected_month['year']
     label = selected_month['label']
 
+    # Update slider marks to show only the current label on top
+    slider_marks = {month_idx: {'label': label, 'style': {'fontWeight': 'bold'}}}
+    
     # Theme color
     text_color = '#f0f6fc' if (theme_value and len(theme_value) > 0) else '#2c3e50'
 
@@ -251,7 +255,7 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
         )
     )
     
-    return fig_map, fig_dev, fig_bar, kpi_section, line_fig
+    return fig_map, fig_dev, fig_bar, kpi_section, line_fig, slider_marks
 
 if __name__ == '__main__':
     if config.DEBUG:

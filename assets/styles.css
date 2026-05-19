@@ -92,24 +92,24 @@ body {
     color: var(--text-dark) !important;
 }
 
-/* Specific Slider Mark Styling */
+/* Floating Slider Label Positioning */
+.rc-slider-mark-text {
+    color: var(--text-dark) !important;
+    top: -35px !important;
+    white-space: nowrap !important;
+    font-size: 0.95rem !important;
+    pointer-events: none; /* Avoid interfering with handle clicks */
+    transition: left 0.1s ease-out; /* Smooth following */
+}
+
+/* Hide standard slider dots for a cleaner look */
+.rc-slider-dot {
+    display: none !important;
+}
+
 [data-theme='dark'] .rc-slider-mark-text {
     color: var(--text-dark) !important;
-    opacity: 0.8;
-}
-
-[data-theme='dark'] .rc-slider-mark-text-active {
-    color: var(--text-dark) !important;
-    font-weight: bold;
-    opacity: 1;
-}
-
-.rc-slider-rail {
-    background-color: #e9ecef !important;
-}
-
-[data-theme='dark'] .rc-slider-rail {
-    background-color: #30363d !important;
+    opacity: 1; /* Keep active label fully visible */
 }
 
 .rc-slider-mark-text {
