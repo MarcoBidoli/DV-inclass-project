@@ -33,7 +33,7 @@ def create_choropleth_map(df, geojson, fuel_type, month_label):
         title=f"<b>{fuel_type} ({month_label})</b>"
     )
 
-    # Show only Italy polygons
+    # Show only Italy polygons and lock view
     fig.update_geos(
         fitbounds="locations",
         visible=False
@@ -49,7 +49,8 @@ def create_choropleth_map(df, geojson, fuel_type, month_label):
         margin={"r": 0, "t": 40, "l": 0, "b": 0},
         title_x=0.05,
         transition_duration=500,
-        coloraxis_colorbar=dict(title="€/L")
+        coloraxis_colorbar=dict(title="€/L"),
+        dragmode=False
     )
 
     return fig
@@ -85,7 +86,7 @@ def create_deviation_map(df, geojson, fuel_type, month_label):
         title=f"<b>{fuel_type} ({month_label})</b>"
     )
 
-    # Show only Italy polygons
+    # Show only Italy polygons and lock view
     fig.update_geos(
         fitbounds="locations",
         visible=False
@@ -101,7 +102,8 @@ def create_deviation_map(df, geojson, fuel_type, month_label):
         margin={"r": 0, "t": 40, "l": 0, "b": 0},
         title_x=0.05,
         transition_duration=500,
-        coloraxis_colorbar=dict(title="% Diff")
+        coloraxis_colorbar=dict(title="% Diff"),
+        dragmode=False
     )
 
     return fig

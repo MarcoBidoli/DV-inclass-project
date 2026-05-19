@@ -27,31 +27,29 @@ def create_bar_chart(df, fuel_type, month_label):
         name=fuel_type,
         orientation='h',
         marker_color=color,
-        text=df_sorted['Regione'],
+        text=df_sorted['Regione'].apply(lambda x: f"  {x}"), # Added leading spaces for padding
         textposition='inside',
         insidetextanchor='start',
         textfont=dict(
             color='white',
             size=14,
-            family='IBM Plex Sans',
-            weight='bold'
+            family='Source Serif 4'
         ),
         hovertemplate="<b>%{y}</b><br>Price: €%{x:.3f}/L<extra></extra>"
     ))
-    
+
     # Trace 2: Price (Inside End, Not Bold)
     fig.add_trace(go.Bar(
         x=df_sorted['avg_price'],
         y=df_sorted['Regione'],
         orientation='h',
         marker_color='rgba(0,0,0,0)', # Transparent bar
-        text=df_sorted['avg_price'].apply(lambda x: f"€{x:.3f}"),
+        text=df_sorted['avg_price'].apply(lambda x: f"€{x:.3f}  "), # Added trailing spaces for padding
         textposition='inside',
         insidetextanchor='end',
         textfont=dict(
             color='white',
-            size=13,
-            family='IBM Plex Sans'
+            size=13
         ),
         showlegend=False,
         hoverinfo='skip'
@@ -68,13 +66,13 @@ def create_bar_chart(df, fuel_type, month_label):
                 line_color=color,
                 annotation_text=f"Avg {fuel_type} ({nat_avg:.3f} €/L)", 
                 annotation_position="bottom right",
-                annotation_font=dict(family='IBM Plex Sans', color=color) # color already fuel-specific
+                annotation_font=dict(family='Source Serif 4', color=color) # color already fuel-specific
             )
     
     fig.update_layout(
         title=f"<b>{fuel_type} ({month_label})</b>",
-        title_font=dict(family='IBM Plex Sans', size=20),
-        xaxis=dict(title="Average Price (€/L)", range=[0, df_sorted['avg_price'].max() * 1.15], tickfont=dict(family='IBM Plex Sans')),
+        title_font=dict(family='Source Serif 4', size=20),
+        xaxis=dict(title="Average Price (€/L)", range=[0, df_sorted['avg_price'].max() * 1.15], tickfont=dict(family='Source Serif 4')),
         yaxis=dict(title="", showticklabels=False), # Hide standard y-axis labels
         margin={"t":60, "l":0, "r":20, "b":40},
         plot_bgcolor='rgba(0,0,0,0)',
@@ -82,7 +80,7 @@ def create_bar_chart(df, fuel_type, month_label):
         height=700,
         barmode='overlay',
         transition_duration=500,
-        font=dict(family='IBM Plex Sans')
+        font=dict(family='Source Serif 4')
     )
     
     return fig

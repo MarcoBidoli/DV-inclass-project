@@ -22,7 +22,7 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[
         dbc.themes.BOOTSTRAP,
-        "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap",
+        "https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap",
         "https://fonts.cdnfonts.com/css/ds-digital"
     ],
     suppress_callback_exceptions=True
@@ -83,12 +83,12 @@ app.layout = html.Div([
             
             html.Div([
                 html.Div("Regional Fuel Prices", className="h4 mb-3 fw-bold"),
-                dcc.Graph(id='choropleth-map', config={'displayModeBar': False}, style={'height': '600px'})
+                dcc.Graph(id='choropleth-map', config={'displayModeBar': False, 'scrollZoom': False, 'staticPlot': False}, style={'height': '600px'})
             ], className="card-container p-4 shadow-sm mb-4 border-0 rounded"),
             
             html.Div([
                 html.Div("Regional Deviation from National Average", className="h4 mb-3 fw-bold"),
-                dcc.Graph(id='deviation-map', config={'displayModeBar': False}, style={'height': '600px'})
+                dcc.Graph(id='deviation-map', config={'displayModeBar': False, 'scrollZoom': False, 'staticPlot': False}, style={'height': '600px'})
             ], className="card-container p-4 shadow-sm mb-4 border-0 rounded"),
         ]),
         
@@ -96,7 +96,7 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.Div("Regional Fuel Price Ranking", className="h4 mb-3 fw-bold"),
-                dcc.Graph(id='bar-chart', config={'displayModeBar': False}, style={'height': '700px'})
+                dcc.Graph(id='bar-chart', config={'displayModeBar': False, 'scrollZoom': False, 'staticPlot': False}, style={'height': '700px'})
             ], className="card-container p-4 shadow-sm mb-4 border-0 rounded"),
         ]),
 
@@ -123,7 +123,7 @@ app.layout = html.Div([
                         )
                     ], md=6, className="d-flex align-items-center")
                 ], className="mb-3"),
-                dcc.Graph(id='line-chart', config={'displayModeBar': False}, style={'height': '600px'})
+                dcc.Graph(id='line-chart', config={'displayModeBar': False, 'scrollZoom': False, 'staticPlot': False}, style={'height': '600px'})
             ], className="card-container p-4 shadow-sm mb-4 border-0 rounded"),
         ])
 
@@ -198,15 +198,22 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
         f.update_layout(
             paper_bgcolor=chart_bg,
             plot_bgcolor=chart_bg,
-            font=dict(color=text_color, family='IBM Plex Sans')
+            font=dict(color=text_color, family='Source Serif 4'),
+            dragmode=False
         )
-        if hasattr(f, 'layout') and 'mapbox' in f.layout:
-            f.update_layout(mapbox_style=mapbox_style)
+    
+    # Update map backgrounds explicitly for non-mapbox choropleths
+    fig_map.update_geos(bgcolor=chart_bg)
+    fig_dev.update_geos(bgcolor=chart_bg)
     
     # Update axes for bar and line charts
-    for f in [fig_bar, line_fig]:
-        f.update_xaxes(gridcolor=grid_color, zerolinecolor=grid_color)
-        f.update_yaxes(gridcolor=grid_color, zerolinecolor=grid_color)
+    for f in [fig_bar]:
+        f.update_xaxes(gridcolor=grid_color, zerolinecolor=grid_color, fixedrange=True)
+        f.update_yaxes(gridcolor=grid_color, zerolinecolor=grid_color, fixedrange=True)
+    
+    # Line chart keeps some interaction but disable zoom
+    line_fig.update_xaxes(gridcolor=grid_color, zerolinecolor=grid_color, fixedrange=True)
+    line_fig.update_yaxes(gridcolor=grid_color, zerolinecolor=grid_color, fixedrange=True)
 
     # Specific line chart hover enhancements and range slider theming
     event_color = "#2c3e50" if not is_dark else "#f0f6fc"
@@ -236,6 +243,7 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
 
     line_fig.update_layout(
         hovermode="x unified",
+        dragmode=False,
         spikedistance=-1,
         xaxis=dict(
             showspikes=True,

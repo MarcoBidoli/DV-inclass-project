@@ -1,144 +1,154 @@
 :root {
     --primary-color: #007bff;
-    --bg-light: #f8f9fa;
+    --bg-light: rgb(248, 248, 246);
     --text-dark: #2c3e50;
     --border-radius: 12px;
-    --card-bg: white;
-    --header-bg: white;
+    --card-bg: rgb(248, 248, 246);
+    --header-bg: rgb(248, 248, 246);
 }
 
 [data-theme='dark'] {
-    --bg-light: #0d1117; /* Deeper dark for GitHub-like feel */
-    --text-dark: #f0f6fc; /* Brighter white for better contrast */
-    --card-bg: #161b22; /* Slightly lighter than bg for elevation */
-    --header-bg: #161b22;
+    --bg-light: rgb(31, 31, 30);
+    --text-dark: #f0f6fc;
+    --card-bg: rgb(31, 31, 30);
+    --header-bg: rgb(31, 31, 30);
     --border-color: #30363d;
 }
 
-[data-theme='dark'] .card-text, [data-theme='dark'] .kpi-value {
-    text-shadow: 0 0 10px currentColor; /* Glow effect for digital font in dark mode */
-}
-
-[data-theme='dark'] .text-muted {
-    color: #8b949e !important; /* Brighter muted text */
-}
-
-[data-theme='dark'] .card-container, [data-theme='dark'] .card {
-    border: 1px solid var(--border-color) !important;
-}
-
+/* Base */
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Source Serif 4', 'Charter', 'Georgia', serif;
     margin: 0;
     padding: 0;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Header */
 .dashboard-header {
     background-color: var(--header-bg) !important;
-    text-align: left;
     margin-bottom: 2rem;
     border-bottom: 2px solid #333;
     padding-bottom: 1rem;
-    transition: all 0.3s ease;
 }
 
-.card-container, .card, .card-body {
-    transition: all 0.3s ease !important;
-}
-
-.dark-mode-active .dashboard-header {
-    background-color: var(--header-bg) !important;
-    color: var(--text-dark) !important;
-}
-
+/* Cards */
 .card-container {
     background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    height: 100%;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .card, .card-body {
     background-color: var(--card-bg) !important;
     color: var(--text-dark) !important;
-    transition: background-color 0.3s ease;
 }
 
-/* Custom Blue Slider */
-.rc-slider-track {
+/* Dark mode text tweaks */
+[data-theme='dark'] .text-muted {
+    color: #8b949e !important;
+}
+
+[data-theme='dark'] .card-container,
+[data-theme='dark'] .card {
+    border: 1px solid var(--border-color) !important;
+}
+
+/* =========================
+   SLIDER (FIXED + BLUE)
+   ========================= */
+
+/* Track (active part) */
+.rc-slider .rc-slider-track {
     background-color: #007bff !important;
 }
 
-.rc-slider-handle {
-    border: solid 2px #007bff !important;
-    background-color: #fff !important;
+[data-theme='dark'] .rc-slider .rc-slider-track {
+    background-color: #add8e6 !important;
 }
 
-.rc-slider-handle:hover {
+/* Rail (inactive part) */
+.rc-slider .rc-slider-rail {
+    background-color: #d0d0d0 !important;
+}
+
+[data-theme='dark'] .rc-slider .rc-slider-rail {
+    background-color: #444 !important;
+}
+
+/* Handle */
+.rc-slider .rc-slider-handle {
+    border: 2px solid #007bff !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+[data-theme='dark'] .rc-slider .rc-slider-handle {
+    border: 2px solid #add8e6 !important;
+    background-color: rgb(31, 31, 30) !important;
+}
+
+/* Handle interactions */
+.rc-slider .rc-slider-handle:hover,
+.rc-slider .rc-slider-handle:active,
+.rc-slider .rc-slider-handle:focus {
     border-color: #0056b3 !important;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.2) !important;
 }
 
-/* Ensure all labels and text within cards follow the theme, excluding fuel prices */
-[data-theme='dark'] label, 
-[data-theme='dark'] .form-label,
-[data-theme='dark'] .card-title,
-[data-theme='dark'] .card-text:not(.kpi-value),
-[data-theme='dark'] .h4 {
-    color: var(--text-dark) !important;
+/* REMOVE tooltip number box */
+.rc-slider-tooltip,
+.rc-slider-tooltip *,
+.rc-slider-step,
+.rc-slider-dot {
+    display: none !important;
+    visibility: hidden !important;
 }
 
-/* Floating Slider Label Positioning */
+/* Marks */
 .rc-slider-mark-text {
     color: var(--text-dark) !important;
-    top: -35px !important;
+    font-size: 0.9rem !important;
     white-space: nowrap !important;
-    font-size: 0.95rem !important;
-    pointer-events: none; /* Avoid interfering with handle clicks */
-    transition: left 0.1s ease-out; /* Smooth following */
 }
 
-/* Hide standard slider dots for a cleaner look */
-.rc-slider-dot {
+/* Optional: de-emphasize non-active marks */
+.rc-slider-mark-text {
+    opacity: 0.6;
+}
+
+.rc-slider-mark-text-active {
+    opacity: 1;
+    font-weight: 600;
+}
+
+/* Remove dots */
+.rc-slider-dot,
+.rc-slider-dot-active {
     display: none !important;
 }
 
-[data-theme='dark'] .rc-slider-mark-text {
-    color: var(--text-dark) !important;
-    opacity: 1; /* Keep active label fully visible */
-}
-
-.rc-slider-mark-text {
-    color: var(--text-dark) !important;
-}
-
-/* Advanced iOS-Style Toggle Switch with Internal Labels */
+/* =========================
+   IOS SWITCH
+   ========================= */
 
 .ios-switch .form-check-input {
-    width: 7rem !important; /* Wider to fit full words */
+    width: 7rem !important;
     height: 2.2rem !important;
-    margin-top: 0 !important;
-    background-color: #006400 !important; /* Benzina Green (Default) */
+    background-color: #006400 !important;
     border: none !important;
-    background-image: none !important; /* Remove default Bootstrap dot */
-    position: relative !important;
     border-radius: 2.2rem !important;
     cursor: pointer;
-    transition: background-color 0.3s ease !important;
-    display: inline-block;
-    appearance: none;
-    -webkit-appearance: none;
+    position: relative !important;
 }
 
 .ios-switch .form-check-input:checked {
-    background-color: #E65100 !important; /* Gasolio Dark Orange */
+    background-color: #E65100 !important;
 }
 
-/* Custom Thumb (the "dot") */
 .ios-switch .form-check-input::after {
     content: "Benzina";
     position: absolute;
@@ -146,17 +156,16 @@ body {
     left: 3px;
     width: 4rem;
     height: calc(2.2rem - 6px);
-    background-color: white !important;
+    background: white;
     border-radius: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
     font-weight: 800;
-    color: #006400; /* Text color matches fuel when inside white dot */
-    text-transform: uppercase;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    color: #006400;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
 }
 
 .ios-switch .form-check-input:checked::after {
@@ -165,29 +174,17 @@ body {
     color: #E65100;
 }
 
-.ios-switch .form-check-input:focus {
-    box-shadow: none !important;
-}
+/* =========================
+   DROPDOWNS (DARK MODE)
+   ========================= */
 
-/* Remove default Bootstrap focus shadow and border */
-.form-check-input:focus {
-    border-color: transparent !important;
-    outline: 0 !important;
-}
-
-/* Dash Dropdown Dark Mode Styling */
 [data-theme='dark'] .Select-control {
     background-color: #161b22 !important;
     border-color: var(--border-color) !important;
 }
 
-[data-theme='dark'] .Select-value-label {
-    color: var(--text-dark) !important;
-}
-
 [data-theme='dark'] .Select-menu-outer {
     background-color: #161b22 !important;
-    border-color: var(--border-color) !important;
 }
 
 [data-theme='dark'] .VirtualizedSelectOption {
@@ -197,29 +194,28 @@ body {
 
 [data-theme='dark'] .VirtualizedSelectFocusedOption {
     background-color: #30363d !important;
+}
+
+/* =========================
+   TYPOGRAPHY HELPERS
+   ========================= */
+
+[data-theme='dark'] label,
+[data-theme='dark'] .form-label,
+[data-theme='dark'] .card-title,
+[data-theme='dark'] .h4 {
     color: var(--text-dark) !important;
 }
 
-[data-theme='dark'] .Select--multi .Select-value {
-    background-color: #30363d !important;
-    border-color: var(--border-color) !important;
-    color: var(--text-dark) !important;
-}
+/* =========================
+   MOBILE
+   ========================= */
 
-[data-theme='dark'] .Select--multi .Select-value-icon {
-    border-right-color: var(--border-color) !important;
-}
-
-[data-theme='dark'] .Select--multi .Select-value-icon:hover {
-    background-color: #c9d1d9 !important;
-    color: #0d1117 !important;
-}
-
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .main-container {
         padding: 1rem;
     }
+
     .dashboard-header h1 {
         font-size: 1.8rem;
     }
