@@ -195,12 +195,12 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
     y = selected_month['year']
     label = selected_month['label']
 
-    # Update slider marks to show only the current label on top
-    slider_marks = {month_idx: {'label': label, 'style': {'fontWeight': 'bold'}}}
-    
     # Theme color
     text_color = '#f0f6fc' if (theme_value and len(theme_value) > 0) else '#2c3e50'
 
+    # Update slider marks to show only the current label on top
+    slider_marks = {month_idx: {'label': label, 'style': {'fontWeight': 'bold'}}}
+    
     # 1. KPIs (Synchronized with selected month)
     petrol_avg = get_kpi_data(full_df, 'Petrol', month=m, year=y)
     diesel_avg = get_kpi_data(full_df, 'Diesel', month=m, year=y)
@@ -230,7 +230,7 @@ def update_all_visuals(fuel_toggle, month_idx, theme_value, granularity):
         f.update_layout(
             paper_bgcolor=chart_bg,
             plot_bgcolor=chart_bg,
-            font=dict(color=text_color, family='Source Serif 4'),
+            font=dict(color=text_color, family='Source Serif 4', size=13), # Increased from default ~12
             dragmode=False
         )
     

@@ -32,7 +32,7 @@ def create_bar_chart(df, fuel_type, month_label):
         insidetextanchor='start',
         textfont=dict(
             color='white',
-            size=14,
+            size=15.4, # 14 * 1.1
             family='Source Serif 4'
         ),
         hovertemplate="<b>%{y}</b><br>Price: €%{x:.3f}/L<extra></extra>"
@@ -49,7 +49,7 @@ def create_bar_chart(df, fuel_type, month_label):
         insidetextanchor='end',
         textfont=dict(
             color='white',
-            size=13
+            size=14.3 # 13 * 1.1
         ),
         showlegend=False,
         hoverinfo='skip'
@@ -71,7 +71,7 @@ def create_bar_chart(df, fuel_type, month_label):
     
     fig.update_layout(
         title=f"<b>{fuel_type} ({month_label})</b>",
-        title_font=dict(family='Source Serif 4', size=20),
+        title_font=dict(family='Source Serif 4', size=22), # 20 * 1.1
         xaxis=dict(title="Average Price (€/L)", range=[0, df_sorted['avg_price'].max() * 1.15], tickfont=dict(family='Source Serif 4')),
         yaxis=dict(title="", showticklabels=False), # Hide standard y-axis labels
         margin={"t":60, "l":0, "r":20, "b":40},
